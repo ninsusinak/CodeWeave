@@ -59,7 +59,7 @@ public partial class MainWindow : Window
                 return;
             }
 
-            var files = await e.Data.GetFiles();
+            var files = e.Data.GetFiles();
             var first = files?.FirstOrDefault();
 
             if (first is null)
