@@ -1,0 +1,7 @@
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/CodeWeave.UI.csproj.AssemblyReference.cache
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/Avalonia/Resources.Inputs.cache
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/Avalonia/resources
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/CodeWeave.UI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/CodeWeave.UI.AssemblyInfoInputs.cache
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/CodeWeave.UI.AssemblyInfo.cs
+/Users/sharrison/CodeWeave/CodeWeave.UI/obj/Debug/net8.0/CodeWeave.UI.csproj.CoreCompileInputs.cache
