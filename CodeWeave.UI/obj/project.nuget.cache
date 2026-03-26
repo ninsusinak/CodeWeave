@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RHuLnA2OKl/PsS4x002mkPR75eTvJEWE8+S4TnxTuSD7aaIGVx4dnYw8Hd7Lt3fuc4AP83VW/MWjksyXI5ErIg==",
+  "dgSpecHash": "OAILTHT8LEc=",
   "success": true,
   "projectFilePath": "/Users/sharrison/CodeWeave/CodeWeave.UI/CodeWeave.UI.csproj",
   "expectedPackageFiles": [
@@ -22,13 +22,19 @@
     "/Users/sharrison/.nuget/packages/harfbuzzsharp.nativeassets.webassembly/8.3.1.1/harfbuzzsharp.nativeassets.webassembly.8.3.1.1.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/harfbuzzsharp.nativeassets.win32/8.3.1.1/harfbuzzsharp.nativeassets.win32.8.3.1.1.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/microcom.runtime/0.11.0/microcom.runtime.0.11.0.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.net.illink.tasks/8.0.25/microsoft.net.illink.tasks.8.0.25.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/skiasharp/2.88.9/skiasharp.2.88.9.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/skiasharp.nativeassets.linux/2.88.9/skiasharp.nativeassets.linux.2.88.9.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/skiasharp.nativeassets.macos/2.88.9/skiasharp.nativeassets.macos.2.88.9.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/skiasharp.nativeassets.webassembly/2.88.9/skiasharp.nativeassets.webassembly.2.88.9.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/skiasharp.nativeassets.win32/2.88.9/skiasharp.nativeassets.win32.2.88.9.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
-    "/Users/sharrison/.nuget/packages/tmds.dbus.protocol/0.21.2/tmds.dbus.protocol.0.21.2.nupkg.sha512"
+    "/Users/sharrison/.nuget/packages/tmds.dbus.protocol/0.21.2/tmds.dbus.protocol.0.21.2.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.ref/8.0.25/microsoft.netcore.app.ref.8.0.25.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.runtime.osx-arm64/8.0.25/microsoft.netcore.app.runtime.osx-arm64.8.0.25.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.25/microsoft.aspnetcore.app.ref.8.0.25.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-arm64/8.0.25/microsoft.aspnetcore.app.runtime.osx-arm64.8.0.25.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.25/microsoft.netcore.app.host.osx-arm64.8.0.25.nupkg.sha512"
   ],
   "logs": []
 }
