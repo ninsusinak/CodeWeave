@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=CodeWeave
+Comment=Interactive code map generator
+Exec=/opt/codeweave/CodeWeave.UI
+Icon=codeweave
+Terminal=false
+Categories=Development;Utility;

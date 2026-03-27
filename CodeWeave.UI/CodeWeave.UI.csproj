@@ -12,7 +12,8 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <PublishTrimmed>false</PublishTrimmed>
 
-    <ApplicationIcon>assets/CodeWeave.ico</ApplicationIcon>
+    <ApplicationIcon>assets/CodeWeaver.ico</ApplicationIcon>
+    <AppleIconAsset>assets/CodeWeaver.icns</AppleIconAsset>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.3.7" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.7" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.7" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.7" />
   </ItemGroup>
 
   <ItemGroup>

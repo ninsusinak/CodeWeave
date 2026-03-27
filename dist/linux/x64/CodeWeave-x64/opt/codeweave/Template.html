@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CodeWeave</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg2: #070b16;
+      --panel: rgba(18, 25, 54, 0.94);
+      --panel-border: #243056;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --link: #334155;
+      --highlight: #f59e0b;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --orange: #f59e0b;
+      --gray: #94a3b8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1c2550 0%, var(--bg) 45%, var(--bg2) 100%);
+      color: var(--text);
+    }
+
+    #app {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .panel {
+      position: absolute;
+      z-index: 10;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    #topbar {
+      top: 16px;
+      left: 16px;
+      min-width: 250px;
+    }
+
+    #brand {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    #subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    #stats {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    #controls {
+      top: 16px;
+      left: 290px;
+      width: 280px;
+    }
+
+    #controls input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #30406e;
+      background: #0f1730;
+      color: var(--text);
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    #controls button {
+      width: 100%;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: #3658d4;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #controls button:hover {
+      background: #4668e8;
+    }
+
+    #info {
+      top: 16px;
+      right: 16px;
+      width: 320px;
+      max-width: calc(100vw - 32px);
+    }
+
+    #info h2, #topFiles h3, #folders h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    #info .meta, .small-list {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    #topFiles {
+      right: 16px;
+      bottom: 16px;
+      width: 320px;
+      max-height: 280px;
+      overflow: auto;
+    }
+
+    #folders {
+      left: 16px;
+      bottom: 16px;
+      width: 260px;
+      max-height: 260px;
+      overflow: auto;
+    }
+
+    .small-list-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .small-list-item:last-child {
+      border-bottom: 0;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      margin-left: 6px;
+    }
+
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    svg {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      cursor: grab;
+    }
+
+    svg:active {
+      cursor: grabbing;
+    }
+
+    .label {
+      font-size: 11px;
+      fill: #a8b3cf;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .link {
+      stroke: var(--link);
+      stroke-opacity: 0.45;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="topbar" class="panel">
+      <div id="brand">CodeWeave</div>
+      <div id="subtitle">Interactive codebase map</div>
+      <div id="stats"></div>
+    </div>
+
+    <div id="controls" class="panel">
+      <input id="searchInput" type="text" placeholder="Search files..." />
+      <button id="resetButton">Reset View</button>
+    </div>
+
+    <div id="info" class="panel">
+      <h2>Nothing selected</h2>
+      <div class="meta">Click a node to inspect a file and focus its connections.</div>
+    </div>
+
+    <div id="folders" class="panel">
+      <h3>Folders</h3>
+      <div id="foldersList" class="small-list"></div>
+    </div>
+
+    <div id="topFiles" class="panel">
+      <h3>Top Connected Files</h3>
+      <div id="topFilesList" class="small-list"></div>
+    </div>
+
+    <svg></svg>
+  </div>
+
+  <script>
+    const graph = __GRAPH_DATA__;
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("svg");
+    const rootGroup = svg.append("g");
+
+    svg.call(
+      d3.zoom()
+        .scaleExtent([0.2, 4])
+        .on("zoom", (event) => {
+          rootGroup.attr("transform", event.transform);
+        })
+    );
+
+    const statsEl = document.getElementById("stats");
+    statsEl.innerHTML = `
+      <strong>Files:</strong> ${graph.fileCount}<br>
+      <strong>Links:</strong> ${graph.linkCount}<br>
+      <strong>Generated:</strong> ${escapeHtml(graph.generatedAt)}
+    `;
+
+    function colorForLanguage(language) {
+      switch (language) {
+        case "csharp": return "#3b82f6";
+        case "cpp": return "#22c55e";
+        case "python": return "#f59e0b";
+        default: return "#94a3b8";
+      }
+    }
+
+    const linkedById = {};
+    graph.links.forEach(d => {
+      linkedById[d.source + "," + d.target] = true;
+      linkedById[d.target + "," + d.source] = true;
+    });
+
+    function isConnected(a, b) {
+      return linkedById[a.id + "," + b.id] || a.id === b.id;
+    }
+
+    const folderColor = d3.scaleOrdinal(d3.schemeTableau10);
+    const folders = [...new Set(graph.nodes.map(n => n.folder))];
+
+    const link = rootGroup
+      .append("g")
+      .selectAll("line")
+      .data(graph.links)
+      .enter()
+      .append("line")
+      .attr("class", "link")
+      .attr("stroke-width", 1.4);
+
+    const node = rootGroup
+      .append("g")
+      .selectAll("circle")
+      .data(graph.nodes)
+      .enter()
+      .append("circle")
+      .attr("r", d => Math.max(6, Math.min(24, Math.sqrt(d.lines) * 0.9)))
+      .attr("fill", d => colorForLanguage(d.language))
+      .attr("data-folder", d => d.folder)
+      .style("filter", "drop-shadow(0 0 8px rgba(255,255,255,0.15))")
+      .call(
+        d3.drag()
+          .on("start", dragStarted)
+          .on("drag", dragged)
+          .on("end", dragEnded)
+      )
+      .on("click", (event, d) => {
+        event.stopPropagation();
+        selectNode(d);
+      });
+
+    const label = rootGroup
+      .append("g")
+      .selectAll("text")
+      .data(graph.nodes)
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .text(d => d.name);
+
+    const simulation = d3.forceSimulation(graph.nodes)
+      .force("link", d3.forceLink(graph.links).id(d => d.id).distance(95))
+      .force("charge", d3.forceManyBody().strength(-260))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collision", d3.forceCollide().radius(d => Math.max(14, Math.min(30, Math.sqrt(d.lines) * 1.15))))
+      .force("x", d3.forceX(d => folderForceX(d.folder)).strength(0.06))
+      .force("y", d3.forceY(height / 2).strength(0.03));
+
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+
+      label
+        .attr("x", d => d.x + 10)
+        .attr("y", d => d.y + 4);
+    });
+
+    function folderForceX(folder) {
+      const index = folders.indexOf(folder);
+      if (index < 0) return width / 2;
+      const spacing = width / Math.max(folders.length + 1, 2);
+      return spacing * (index + 1);
+    }
+
+    function selectNode(selected) {
+      const connectedCount = graph.links.filter(
+        l => l.source.id === selected.id || l.target.id === selected.id
+      ).length;
+
+      document.getElementById("info").innerHTML = `
+        <h2>${escapeHtml(selected.name)}</h2>
+        <div class="meta">
+          <strong>Path:</strong> ${escapeHtml(selected.fullPath)}<br>
+          <strong>Language:</strong> ${escapeHtml(selected.language)}<br>
+          <strong>Lines:</strong> ${selected.lines}<br>
+          <strong>Folder:</strong> ${escapeHtml(selected.folder || "/")}<br>
+          <strong>Connections:</strong> ${connectedCount}
+        </div>
+      `;
+
+      node
+        .attr("opacity", d => isConnected(selected, d) ? 1 : 0.12)
+        .attr("stroke", d => d.id === selected.id ? "#ffffff" : "none")
+        .attr("stroke-width", d => d.id === selected.id ? 2.5 : 0);
+
+      label.attr("opacity", d => isConnected(selected, d) ? 1 : 0.08);
+
+      link
+        .attr("stroke", d =>
+          d.source.id === selected.id || d.target.id === selected.id
+            ? "#f59e0b"
+            : "#334155"
+        )
+        .attr("stroke-opacity", d =>
+          d.source.id === selected.id || d.target.id === selected.id
+            ? 0.95
+            : 0.06
+        )
+        .attr("stroke-width", d =>
+          d.source.id === selected.id || d.target.id === selected.id
+            ? 2.5
+            : 1
+        );
+    }
+
+    function resetView() {
+      document.getElementById("info").innerHTML = `
+        <h2>Nothing selected</h2>
+        <div class="meta">Click a node to inspect a file and focus its connections.</div>
+      `;
+
+      node
+        .attr("opacity", 1)
+        .attr("stroke", "none")
+        .attr("stroke-width", 0);
+
+      label.attr("opacity", 1);
+
+      link
+        .attr("stroke", "#334155")
+        .attr("stroke-opacity", 0.45)
+        .attr("stroke-width", 1.4);
+    }
+
+    function renderTopFiles() {
+      const el = document.getElementById("topFilesList");
+      el.innerHTML = graph.topConnected.map(item => `
+        <div class="small-list-item">
+          <strong>${escapeHtml(item.name)}</strong>
+          <span class="badge">${escapeHtml(item.language)}</span><br>
+          <span>${escapeHtml(item.path)}</span><br>
+          <span>Connections: ${item.connections}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderFolders() {
+      const el = document.getElementById("foldersList");
+      el.innerHTML = graph.folderGroups.map(group => `
+        <div class="small-list-item">
+          <span class="swatch" style="background:${folderColor(group.name)}"></span>
+          <strong>${escapeHtml(group.name)}</strong><br>
+          <span>${group.count} file(s)</span>
+        </div>
+      `).join("");
+    }
+
+    function searchNodes(term) {
+      const value = term.trim().toLowerCase();
+
+      if (!value) {
+        resetView();
+        return;
+      }
+
+      node
+        .attr("opacity", d =>
+          d.name.toLowerCase().includes(value) || d.fullPath.toLowerCase().includes(value) ? 1 : 0.12
+        )
+        .attr("stroke", d =>
+          d.name.toLowerCase().includes(value) || d.fullPath.toLowerCase().includes(value) ? "#ffffff" : "none"
+        )
+        .attr("stroke-width", d =>
+          d.name.toLowerCase().includes(value) || d.fullPath.toLowerCase().includes(value) ? 2 : 0
+        );
+
+      label.attr("opacity", d =>
+        d.name.toLowerCase().includes(value) || d.fullPath.toLowerCase().includes(value) ? 1 : 0.08
+      );
+
+      link
+        .attr("stroke-opacity", 0.08)
+        .attr("stroke-width", 1);
+
+      document.getElementById("info").innerHTML = `
+        <h2>Search</h2>
+        <div class="meta">Showing files matching: <strong>${escapeHtml(term)}</strong></div>
+      `;
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchNodes(e.target.value);
+    });
+
+    document.getElementById("resetButton").addEventListener("click", () => {
+      document.getElementById("searchInput").value = "";
+      resetView();
+    });
+
+    svg.on("click", resetView);
+
+    function dragStarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragEnded(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    renderTopFiles();
+    renderFolders();
+    resetView();
+  </script>
+</body>
+</html>

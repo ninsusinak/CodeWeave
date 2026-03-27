@@ -1,0 +1,9 @@
+Package: codeweave
+Version: 1.0.0
+Architecture: arm64
+Maintainer: CodeWeave Team <info@codeweave.dev>
+Description: Interactive code map generator
+ Generate interactive code maps from your projects.
+ Supports drag-and-drop folder selection and HTML-based visualization.
+Depends: libssl3
+Homepage: https://github.com/yourusername/CodeWeave

@@ -22,16 +22,34 @@ public partial class MainWindow : Window
         AddHandler(DragDrop.DropEvent, DropHandler);
 
         DragDrop.SetAllowDrop(this, true);
+        
+        // Set up tray icon when window opens
+        Opened += OnWindowOpened;
+    }
+
+    private void OnWindowOpened(object? sender, EventArgs e)
+    {
+        try
+        {
+            var icon = new WindowIcon("avares://CodeWeave.UI/assets/CodeWeaver.ico");
+            Icon = icon;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error setting icon: {ex.Message}");
+        }
     }
 
     private void DragEnterHandler(object? sender, DragEventArgs e)
     {
+#pragma warning disable CS0618
         if (e.Data.Contains(DataFormats.Files))
         {
             DropZone.BorderBrush = Avalonia.Media.Brush.Parse("#7AA2FF");
             DropZone.Background = Avalonia.Media.Brush.Parse("#162142");
             DropTitle.Text = "Release to select folder";
         }
+#pragma warning restore CS0618
     }
 
     private void DragLeaveHandler(object? sender, RoutedEventArgs e)
@@ -41,18 +59,21 @@ public partial class MainWindow : Window
 
     private void DragOverHandler(object? sender, DragEventArgs e)
     {
+#pragma warning disable CS0618
         if (e.Data.Contains(DataFormats.Files))
             e.DragEffects = DragDropEffects.Copy;
         else
             e.DragEffects = DragDropEffects.None;
+#pragma warning restore CS0618
 
         e.Handled = true;
     }
 
-    private async void DropHandler(object? sender, DragEventArgs e)
+    private void DropHandler(object? sender, DragEventArgs e)
     {
         try
         {
+#pragma warning disable CS0618
             if (!e.Data.Contains(DataFormats.Files))
             {
                 ResetDropZoneVisual();
@@ -84,6 +105,7 @@ public partial class MainWindow : Window
             {
                 StatusText.Text = "Please drop a folder, not a file.";
             }
+#pragma warning restore CS0618
         }
         catch (Exception ex)
         {

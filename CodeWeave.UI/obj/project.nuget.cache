@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "OAILTHT8LEc=",
+  "dgSpecHash": "fC3V4Zv1OkJ15j+9ES7fTmrf2+o51kDDlKlAicFwIuknV1Z9db32I9W0HZGcelECRjaMs/x7I8hVdEg4E+iPFw==",
   "success": true,
   "projectFilePath": "/Users/sharrison/CodeWeave/CodeWeave.UI/CodeWeave.UI.csproj",
   "expectedPackageFiles": [
     "/Users/sharrison/.nuget/packages/avalonia/11.3.7/avalonia.11.3.7.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/avalonia.angle.windows.natives/2.1.25547.20250602/avalonia.angle.windows.natives.2.1.25547.20250602.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/avalonia.buildservices/11.3.1/avalonia.buildservices.11.3.1.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/avalonia.controls.datagrid/11.3.7/avalonia.controls.datagrid.11.3.7.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/avalonia.desktop/11.3.7/avalonia.desktop.11.3.7.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/avalonia.fonts.inter/11.3.7/avalonia.fonts.inter.11.3.7.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/avalonia.freedesktop/11.3.7/avalonia.freedesktop.11.3.7.nupkg.sha512",
@@ -30,11 +31,9 @@
     "/Users/sharrison/.nuget/packages/skiasharp.nativeassets.win32/2.88.9/skiasharp.nativeassets.win32.2.88.9.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
     "/Users/sharrison/.nuget/packages/tmds.dbus.protocol/0.21.2/tmds.dbus.protocol.0.21.2.nupkg.sha512",
-    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.ref/8.0.25/microsoft.netcore.app.ref.8.0.25.nupkg.sha512",
-    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.runtime.osx-arm64/8.0.25/microsoft.netcore.app.runtime.osx-arm64.8.0.25.nupkg.sha512",
-    "/Users/sharrison/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.25/microsoft.aspnetcore.app.ref.8.0.25.nupkg.sha512",
-    "/Users/sharrison/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-arm64/8.0.25/microsoft.aspnetcore.app.runtime.osx-arm64.8.0.25.nupkg.sha512",
-    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.25/microsoft.netcore.app.host.osx-arm64.8.0.25.nupkg.sha512"
+    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.runtime.linux-arm64/8.0.25/microsoft.netcore.app.runtime.linux-arm64.8.0.25.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-arm64/8.0.25/microsoft.aspnetcore.app.runtime.linux-arm64.8.0.25.nupkg.sha512",
+    "/Users/sharrison/.nuget/packages/microsoft.netcore.app.host.linux-arm64/8.0.25/microsoft.netcore.app.host.linux-arm64.8.0.25.nupkg.sha512"
   ],
   "logs": []
 }

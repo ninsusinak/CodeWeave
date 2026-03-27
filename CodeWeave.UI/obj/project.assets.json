@@ -107,6 +107,22 @@
           "buildTransitive/Avalonia.BuildServices.targets": {}
         }
       },
+      "Avalonia.Controls.DataGrid/11.3.7": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.3.7"
+        },
+        "compile": {
+          "lib/net8.0/Avalonia.Controls.DataGrid.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Controls.DataGrid.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Avalonia.Desktop/11.3.7": {
         "type": "package",
         "dependencies": {
@@ -539,7 +555,7 @@
         }
       }
     },
-    "net8.0/osx-arm64": {
+    "net8.0/linux-arm64": {
       "Avalonia/11.3.7": {
         "type": "package",
         "dependencies": {
@@ -631,6 +647,22 @@
           "buildTransitive/Avalonia.BuildServices.targets": {}
         }
       },
+      "Avalonia.Controls.DataGrid/11.3.7": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.3.7"
+        },
+        "compile": {
+          "lib/net8.0/Avalonia.Controls.DataGrid.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Controls.DataGrid.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Avalonia.Desktop/11.3.7": {
         "type": "package",
         "dependencies": {
@@ -698,9 +730,6 @@
           "lib/net8.0/Avalonia.Native.dll": {
             "related": ".xml"
           }
-        },
-        "native": {
-          "runtimes/osx/native/libAvaloniaNative.dylib": {}
         }
       },
       "Avalonia.Remote.Protocol/11.3.7": {
@@ -819,6 +848,9 @@
         },
         "runtime": {
           "lib/net8.0/_._": {}
+        },
+        "native": {
+          "runtimes/linux-arm64/native/libHarfBuzzSharp.so": {}
         }
       },
       "HarfBuzzSharp.NativeAssets.macOS/8.3.1.1": {
@@ -828,9 +860,6 @@
         },
         "runtime": {
           "lib/net8.0/_._": {}
-        },
-        "native": {
-          "runtimes/osx/native/libHarfBuzzSharp.dylib": {}
         }
       },
       "HarfBuzzSharp.NativeAssets.WebAssembly/8.3.1.1": {
@@ -897,6 +926,9 @@
         },
         "runtime": {
           "lib/net6.0/_._": {}
+        },
+        "native": {
+          "runtimes/linux-arm64/native/libSkiaSharp.so": {}
         }
       },
       "SkiaSharp.NativeAssets.macOS/2.88.9": {
@@ -906,9 +938,6 @@
         },
         "runtime": {
           "lib/net6.0/_._": {}
-        },
-        "native": {
-          "runtimes/osx/native/libSkiaSharp.dylib": {}
         }
       },
       "SkiaSharp.NativeAssets.WebAssembly/2.88.9": {
@@ -1166,6 +1195,25 @@
         "tools/netstandard2.0/Avalonia.BuildServices.Collector.dll",
         "tools/netstandard2.0/Avalonia.BuildServices.dll",
         "tools/netstandard2.0/runtimeconfig.json"
+      ]
+    },
+    "Avalonia.Controls.DataGrid/11.3.7": {
+      "sha512": "KznEru2MkKkQJYvHU358/nwA2dWqbIhLpKv5XE7yI13pvxHZsNm2N53KMkjUBrvd6NgfJvA6UNJBtyNpjMiwyg==",
+      "type": "package",
+      "path": "avalonia.controls.datagrid/11.3.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "avalonia.controls.datagrid.11.3.7.nupkg.sha512",
+        "avalonia.controls.datagrid.nuspec",
+        "lib/net6.0/Avalonia.Controls.DataGrid.dll",
+        "lib/net6.0/Avalonia.Controls.DataGrid.xml",
+        "lib/net8.0/Avalonia.Controls.DataGrid.dll",
+        "lib/net8.0/Avalonia.Controls.DataGrid.xml",
+        "lib/netstandard2.0/Avalonia.Controls.DataGrid.dll",
+        "lib/netstandard2.0/Avalonia.Controls.DataGrid.xml",
+        "readme.md"
       ]
     },
     "Avalonia.Desktop/11.3.7": {
@@ -1785,6 +1833,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Avalonia >= 11.3.7",
+      "Avalonia.Controls.DataGrid >= 11.3.7",
       "Avalonia.Desktop >= 11.3.7",
       "Avalonia.Fonts.Inter >= 11.3.7",
       "Avalonia.Themes.Fluent >= 11.3.7",
@@ -1810,7 +1859,6 @@
         "net8.0"
       ],
       "sources": {
-        "/opt/homebrew/Cellar/dotnet/10.0.105/libexec/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1823,19 +1871,17 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "10.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
           "Avalonia": {
+            "target": "Package",
+            "version": "[11.3.7, )"
+          },
+          "Avalonia.Controls.DataGrid": {
             "target": "Package",
             "version": "[11.3.7, )"
           },
@@ -1871,23 +1917,15 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.AspNetCore.App.Ref",
+            "name": "Microsoft.AspNetCore.App.Runtime.linux-arm64",
             "version": "[8.0.25, 8.0.25]"
           },
           {
-            "name": "Microsoft.AspNetCore.App.Runtime.osx-arm64",
+            "name": "Microsoft.NETCore.App.Host.linux-arm64",
             "version": "[8.0.25, 8.0.25]"
           },
           {
-            "name": "Microsoft.NETCore.App.Host.osx-arm64",
-            "version": "[8.0.25, 8.0.25]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.25, 8.0.25]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Runtime.osx-arm64",
+            "name": "Microsoft.NETCore.App.Runtime.linux-arm64",
             "version": "[8.0.25, 8.0.25]"
           }
         ],
@@ -1896,11 +1934,11 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.105/libexec/sdk/10.0.105/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.125/libexec/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
-      "osx-arm64": {
+      "linux-arm64": {
         "#import": []
       }
     }

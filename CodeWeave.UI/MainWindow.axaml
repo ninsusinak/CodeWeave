@@ -2,94 +2,148 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="CodeWeave.UI.MainWindow"
         Title="CodeWeave"
-        Width="980"
-        Height="640"
-        Icon="/assets/icon-256.png">
-        
-  <Grid RowDefinitions="Auto,*,Auto" Margin="24">
+        Width="1000"
+        Height="680"
+        WindowStartupLocation="CenterScreen"
+        Background="#0a0e27">
 
-    <StackPanel Spacing="6">
-      <TextBlock Text="CodeWeave"
-                 FontSize="30"
-                 FontWeight="Bold"/>
-      <TextBlock Text="Drag a project folder here to generate an interactive code map."
-                 Opacity="0.75"/>
-    </StackPanel>
-
-    <Border x:Name="DropZone"
-            Grid.Row="1"
-            Margin="0,20,0,20"
-            Padding="28"
-            CornerRadius="20"
-            BorderThickness="2"
-            BorderBrush="#4C6FFF"
-            Background="#10162B">
-
-      <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
-        <TextBlock x:Name="DropTitle"
-                   Text="Drop folder here"
-                   HorizontalAlignment="Center"
-                   FontSize="24"
-                   FontWeight="SemiBold"
-                   Margin="0,0,0,10"/>
-
-        <TextBlock x:Name="FolderPathText"
-                   Grid.Row="1"
-                   Text="No folder selected"
-                   TextWrapping="Wrap"
-                   MaxWidth="760"
-                   HorizontalAlignment="Center"
-                   TextAlignment="Center"
-                   Opacity="0.7"
-                   Margin="0,0,0,18"/>
-
-        <ProgressBar x:Name="ScanProgressBar"
-                     Grid.Row="2"
-                     Minimum="0"
-                     Maximum="100"
-                     Value="0"
-                     Height="12"
-                     ShowProgressText="False"
-                     Margin="0,0,0,8"/>
-
-        <TextBlock x:Name="ProgressText"
-                   Grid.Row="3"
-                   Text="Ready to scan."
-                   HorizontalAlignment="Center"
-                   Opacity="0.75"
-                   Margin="0,0,0,18"/>
-
-        <StackPanel Grid.Row="4"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Spacing="10">
-          <Button x:Name="BrowseButton"
-                  Content="Browse"
-                  Width="130"
-                  Click="BrowseButton_OnClick"/>
-
-          <Button x:Name="ScanButton"
-                  Content="Scan"
-                  Width="130"
-                  IsEnabled="False"
-                  Click="ScanButton_OnClick"/>
-
-          <Button x:Name="OpenOutputButton"
-                  Content="Open Output"
-                  Width="130"
-                  IsEnabled="False"
-                  Click="OpenOutputButton_OnClick"/>
-        </StackPanel>
-      </Grid>
+  <Grid RowDefinitions="Auto,*,Auto" Margin="0">
+    
+    <!-- Header -->
+    <Border Background="#0f1433" Padding="32,24,32,20" BorderThickness="0,0,0,1" BorderBrush="#1a1f3a">
+      <StackPanel Spacing="8">
+        <TextBlock Text="CodeWeave"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="#ffffff"/>
+        <TextBlock Text="Generate interactive code maps from your projects"
+                   Opacity="0.65"
+                   FontSize="14"/>
+      </StackPanel>
     </Border>
 
+    <!-- Main Content -->
+    <Grid Grid.Row="1" Margin="32,32,32,32">
+      
+      <!-- Drop Zone Card -->
+      <Border x:Name="DropZone"
+              Padding="48"
+              CornerRadius="24"
+              BorderThickness="2"
+              BorderBrush="#5b6eff"
+              Background="#0f1433">
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
+          
+          <!-- Drop Icon/Title -->
+          <StackPanel Spacing="12" HorizontalAlignment="Center">
+            <TextBlock x:Name="DropTitle"
+                       Text="Drop folder here"
+                       HorizontalAlignment="Center"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       Foreground="#ffffff"/>
+            <TextBlock Text="or use the browse button below"
+                       HorizontalAlignment="Center"
+                       Opacity="0.6"
+                       FontSize="16"/>
+          </StackPanel>
+
+          <!-- Folder Path -->
+          <TextBlock x:Name="FolderPathText"
+                     Grid.Row="1"
+                     Text="No folder selected"
+                     TextWrapping="Wrap"
+                     MaxWidth="700"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     Opacity="0.7"
+                     FontSize="15"
+                     Foreground="#a0a0d0"
+                     Margin="0,20,0,0"/>
+
+          <!-- Progress Bar -->
+          <ProgressBar x:Name="ScanProgressBar"
+                       Grid.Row="2"
+                       Minimum="0"
+                       Maximum="100"
+                       Value="0"
+                       Height="6"
+                       ShowProgressText="False"
+                       CornerRadius="3"
+                       Foreground="#5b6eff"
+                       Background="#1a1f3a"
+                       Margin="0,20,0,0"/>
+
+          <!-- Progress Text -->
+          <TextBlock x:Name="ProgressText"
+                     Grid.Row="3"
+                     Text="Ready to scan."
+                     HorizontalAlignment="Center"
+                     Opacity="0.65"
+                     FontSize="15"
+                     Margin="0,20,0,0"/>
+
+          <!-- Buttons -->
+          <StackPanel Grid.Row="4"
+                      Orientation="Horizontal"
+                      HorizontalAlignment="Center"
+                      Spacing="16"
+                      VerticalAlignment="Center"
+                      Margin="0,20,0,0">
+            
+            <Button x:Name="BrowseButton"
+                    Content="Browse Folder"
+                    Padding="24,14,24,14"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Click="BrowseButton_OnClick"
+                    Background="#2d3a8c"
+                    Foreground="#ffffff"
+                    BorderThickness="0"
+                    CornerRadius="10"
+                    Cursor="Hand"/>
+
+            <Button x:Name="ScanButton"
+                    Content="Scan Project"
+                    Padding="24,14,24,14"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    IsEnabled="False"
+                    Click="ScanButton_OnClick"
+                    Background="#5b6eff"
+                    Foreground="#ffffff"
+                    BorderThickness="0"
+                    CornerRadius="10"
+                    Cursor="Hand"/>
+
+            <Button x:Name="OpenOutputButton"
+                    Content="Open Output"
+                    Padding="24,14,24,14"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    IsEnabled="False"
+                    Click="OpenOutputButton_OnClick"
+                    Background="#2d3a8c"
+                    Foreground="#ffffff"
+                    BorderThickness="0"
+                    CornerRadius="10"
+                    Cursor="Hand"/>
+          </StackPanel>
+        </Grid>
+      </Border>
+    </Grid>
+
+    <!-- Status Bar -->
     <Border Grid.Row="2"
-            Padding="14"
-            CornerRadius="14"
-            Background="#0C1224">
+            Background="#0f1433"
+            Padding="32,14,32,14"
+            BorderThickness="0,1,0,0"
+            BorderBrush="#1a1f3a">
       <TextBlock x:Name="StatusText"
                  Text="Ready."
-                 TextWrapping="Wrap"/>
+                 Opacity="0.7"
+                 FontSize="13"/>
     </Border>
   </Grid>
 </Window>
