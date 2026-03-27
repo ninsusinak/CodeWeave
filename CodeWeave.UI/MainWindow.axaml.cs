@@ -23,21 +23,7 @@ public partial class MainWindow : Window
 
         DragDrop.SetAllowDrop(this, true);
         
-        // Set up tray icon when window opens
-        Opened += OnWindowOpened;
-    }
-
-    private void OnWindowOpened(object? sender, EventArgs e)
-    {
-        try
-        {
-            var icon = new WindowIcon("avares://CodeWeave.UI/assets/CodeWeaver.ico");
-            Icon = icon;
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error setting icon: {ex.Message}");
-        }
+        // Icon is set via .csproj AppleIconAsset/ApplicationIcon properties
     }
 
     private void DragEnterHandler(object? sender, DragEventArgs e)
