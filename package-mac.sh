@@ -34,12 +34,12 @@ package_macos() {
     mkdir -p "$MACOS_DIR"
     mkdir -p "$RESOURCES_DIR"
     
-    # Move executable to MacOS directory
-    mv "$OUTPUT_DIR/build/CodeWeave.UI" "$MACOS_DIR/$APP_NAME"
+    # Move all build output (binary + native libs) into MacOS directory
+    mv "$OUTPUT_DIR/build"/* "$MACOS_DIR/" 2>/dev/null || true
+
+    # Rename the executable
+    mv "$MACOS_DIR/CodeWeave.UI" "$MACOS_DIR/$APP_NAME"
     chmod +x "$MACOS_DIR/$APP_NAME"
-    
-    # Copy other binaries and resources
-    mv "$OUTPUT_DIR/build"/* "$CONTENTS/" 2>/dev/null || true
     
     # Copy icon
     cp "CodeWeave.UI/assets/CodeWeaver.icns" "$RESOURCES_DIR/"
