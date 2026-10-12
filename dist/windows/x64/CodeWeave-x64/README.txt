@@ -12,4 +12,4 @@ System Requirements:
 To uninstall:
 Simply delete the folder.
 
-For more information, visit: https://github.com/yourusername/CodeWeave
+For more information, visit: https://github.com/ninsusinak/CodeWeave
